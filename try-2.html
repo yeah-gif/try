@@ -1,225 +1,253 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学生会部门匹配测试</title>
+
+<style>
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+max-width:900px;
+margin:30px auto;
+padding:20px;
+background:linear-gradient(135deg,#eef2f7,#dde7f5);
+}
+h1{text-align:center;}
+.card{
+background:white;
+padding:18px;
+border-radius:14px;
+margin-bottom:20px;
+box-shadow:0 6px 18px rgba(0,0,0,0.05);
+}
+button{
+padding:12px 22px;
+border:none;
+border-radius:10px;
+background:#1F3C88;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+.result{
+margin-top:30px;
+padding:20px;
+background:white;
+border-radius:14px;
+}
+.progress{
+height:10px;
+background:#eee;
+border-radius:5px;
+margin-top:6px;
+margin-bottom:15px;
+}
+.progress-inner{
+height:10px;
+border-radius:5px;
+}
+canvas{display:none;}
+</style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="zh"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1">&lt;title&gt;学生会部门匹配测试&lt;/title&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;style&gt;</p>
-<p class="p1">body{</p>
-<p class="p1">font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;</p>
-<p class="p1">max-width:850px;</p>
-<p class="p1">margin:30px auto;</p>
-<p class="p1">padding:20px;</p>
-<p class="p1">background:linear-gradient(135deg,#eef2f7,#d9e4f5);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">h1{text-align:center;}</p>
-<p class="p2"><br></p>
-<p class="p1">.card{</p>
-<p class="p1">background:white;</p>
-<p class="p1">padding:18px;</p>
-<p class="p1">border-radius:14px;</p>
-<p class="p1">margin-bottom:20px;</p>
-<p class="p1">box-shadow:0 6px 18px rgba(0,0,0,0.05);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">button{</p>
-<p class="p1">padding:12px 22px;</p>
-<p class="p1">border:none;</p>
-<p class="p1">border-radius:10px;</p>
-<p class="p1">background:#1F3C88;</p>
-<p class="p1">color:white;</p>
-<p class="p1">font-size:16px;</p>
-<p class="p1">cursor:pointer;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.progress{</p>
-<p class="p1">height:8px;</p>
-<p class="p1">background:#eee;</p>
-<p class="p1">border-radius:5px;</p>
-<p class="p1">margin-top:6px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.progress-inner{</p>
-<p class="p1">height:8px;</p>
-<p class="p1">border-radius:5px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.result{</p>
-<p class="p1">margin-top:30px;</p>
-<p class="p1">padding:20px;</p>
-<p class="p1">background:white;</p>
-<p class="p1">border-radius:14px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">canvas{display:none;}</p>
-<p class="p1">&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h1&gt;🎯 学生会部门匹配测试&lt;/h1&gt;</p>
-<p class="p1">&lt;form id="quiz"&gt;&lt;/form&gt;</p>
-<p class="p1">&lt;div style="text-align:center;"&gt;</p>
-<p class="p1">&lt;button onclick="calculate()"&gt;查看匹配结果&lt;/button&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div id="result" class="result"&gt;&lt;/div&gt;</p>
-<p class="p1">&lt;div style="text-align:center;margin-top:20px;"&gt;</p>
-<p class="p1">&lt;button onclick="generatePoster()" id="posterBtn" style="display:none;"&gt;生成专属主题海报&lt;/button&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;canvas id="posterCanvas" width="800" height="1200"&gt;&lt;/canvas&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">const deptColors={</p>
-<p class="p1">综合:"#1F3C88",</p>
-<p class="p1">内联:"#F4A261",</p>
-<p class="p1">外联:"#7B2CBF",</p>
-<p class="p1">学习:"#2A9D8F",</p>
-<p class="p1">生活:"#E76F51",</p>
-<p class="p1">文艺:"#D63384",</p>
-<p class="p1">体育:"#FF6B00",</p>
-<p class="p1">宣传:"#00A8E8",</p>
-<p class="p1">文化:"#C6A700",</p>
-<p class="p1">国际:"#3A0CA3"</p>
-<p class="p1">};</p>
-<p class="p2"><br></p>
-<p class="p1">let departments={};</p>
-<p class="p1">Object.keys(deptColors).forEach(d=&gt;{</p>
-<p class="p1">departments[d]={score:0};</p>
-<p class="p1">});</p>
-<p class="p2"><br></p>
-<p class="p1">const questions=[</p>
-<p class="p1">["你更享受？",</p>
-<p class="p1">["整体统筹",["综合",2],["内联",1]],</p>
-<p class="p1">["创意表达",["宣传",2],["文艺",1]],</p>
-<p class="p1">["对外沟通",["外联",2],["国际",1]],</p>
-<p class="p1">["解决实际问题",["生活",2],["学习",1]]</p>
-<p class="p1">],</p>
-<p class="p2"><br></p>
-<p class="p1">["你在团队里？",</p>
-<p class="p1">["秩序维护者",["综合",2],["内联",1]],</p>
-<p class="p1">["气氛制造者",["文艺",2],["体育",1]],</p>
-<p class="p1">["资源连接者",["外联",2],["国际",1]],</p>
-<p class="p1">["内容创作者",["宣传",2],["文化",1]]</p>
-<p class="p1">],</p>
-<p class="p2"><br></p>
-<p class="p1">["你更关注校园？",</p>
-<p class="p1">["制度流程",["综合",2],["学习",1]],</p>
-<p class="p1">["权益关怀",["生活",2],["内联",1]],</p>
-<p class="p1">["文化氛围",["文化",2],["文艺",1]],</p>
-<p class="p1">["国际交流",["国际",2],["外联",1]]</p>
-<p class="p1">]</p>
-<p class="p1">];</p>
-<p class="p2"><br></p>
-<p class="p1">// 自动复制到10题</p>
-<p class="p1">while(questions.length&lt;10){</p>
-<p class="p1">questions.push(questions[questions.length%3]);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">const quiz=document.getElementById("quiz");</p>
-<p class="p2"><br></p>
-<p class="p1">questions.forEach((q,i)=&gt;{</p>
-<p class="p1">let div=document.createElement("div");</p>
-<p class="p1">div.className="card";</p>
-<p class="p1">div.innerHTML="&lt;b&gt;"+(i+1)+". "+q[0]+"&lt;/b&gt;&lt;br&gt;";</p>
-<p class="p1">for(let j=1;j&lt;q.length;j++){</p>
-<p class="p1">div.innerHTML+=`</p>
-<p class="p1">&lt;label&gt;</p>
-<p class="p1">&lt;input type="radio" name="q${i}" data-main="${q[j][1][0]}" data-mainv="${q[j][1][1]}"</p>
-<p class="p1">data-sub="${q[j][2][0]}" data-subv="${q[j][2][1]}"&gt;</p>
-<p class="p1">${q[j][0]}</p>
-<p class="p1">&lt;/label&gt;&lt;br&gt;`;</p>
-<p class="p1">}</p>
-<p class="p1">quiz.appendChild(div);</p>
-<p class="p1">});</p>
-<p class="p2"><br></p>
-<p class="p1">let topResults=[];</p>
-<p class="p2"><br></p>
-<p class="p1">function calculate(){</p>
-<p class="p2"><br></p>
-<p class="p1">Object.keys(departments).forEach(d=&gt;departments[d].score=0);</p>
-<p class="p2"><br></p>
-<p class="p1">questions.forEach((q,i)=&gt;{</p>
-<p class="p1">let selected=document.querySelector(`input[name="q${i}"]:checked`);</p>
-<p class="p1">if(selected){</p>
-<p class="p1">departments[selected.dataset.main].score+=parseInt(selected.dataset.mainv);</p>
-<p class="p1">departments[selected.dataset.sub].score+=parseInt(selected.dataset.subv);</p>
-<p class="p1">}</p>
-<p class="p1">});</p>
-<p class="p2"><br></p>
-<p class="p1">let maxScore=20; // 理论最大值</p>
-<p class="p2"><br></p>
-<p class="p1">let sorted=Object.entries(departments)</p>
-<p class="p1">.map(d=&gt;[d[0],Math.round(d[1].score/maxScore*100)])</p>
-<p class="p1">.sort((a,b)=&gt;b[1]-a[1])</p>
-<p class="p1">.slice(0,3);</p>
-<p class="p2"><br></p>
-<p class="p1">topResults=sorted;</p>
-<p class="p2"><br></p>
-<p class="p1">let result=document.getElementById("result");</p>
-<p class="p1">result.innerHTML="&lt;h2&gt;🏆 你的匹配结果&lt;/h2&gt;";</p>
-<p class="p2"><br></p>
-<p class="p1">sorted.forEach(dep=&gt;{</p>
-<p class="p1">result.innerHTML+=`</p>
-<p class="p1">&lt;h3 style="color:${deptColors[dep[0]]}"&gt;${dep[0]} ${dep[1]}%&lt;/h3&gt;</p>
-<p class="p1">&lt;div class="progress"&gt;</p>
-<p class="p1">&lt;div class="progress-inner" style="width:${dep[1]}%;background:${deptColors[dep[0]]}"&gt;&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">`;</p>
-<p class="p1">});</p>
-<p class="p2"><br></p>
-<p class="p1">document.getElementById("posterBtn").style.display="inline-block";</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function generatePoster(){</p>
-<p class="p1">const canvas=document.getElementById("posterCanvas");</p>
-<p class="p1">const ctx=canvas.getContext("2d");</p>
-<p class="p2"><br></p>
-<p class="p1">let mainDept=topResults[0][0];</p>
-<p class="p1">let color=deptColors[mainDept];</p>
-<p class="p2"><br></p>
-<p class="p1">ctx.fillStyle=color;</p>
-<p class="p1">ctx.fillRect(0,0,800,1200);</p>
-<p class="p2"><br></p>
-<p class="p1">ctx.fillStyle="#ffffff";</p>
-<p class="p1">ctx.font="bold 60px sans-serif";</p>
-<p class="p1">ctx.fillText("学生会部门匹配结果",80,150);</p>
-<p class="p2"><br></p>
-<p class="p1">ctx.font="50px sans-serif";</p>
-<p class="p1">let y=350;</p>
-<p class="p1">topResults.forEach(dep=&gt;{</p>
-<p class="p1">ctx.fillText(dep[0]+"<span class="Apple-converted-space">  </span>"+dep[1]+"%",200,y);</p>
-<p class="p1">y+=150;</p>
-<p class="p1">});</p>
-<p class="p2"><br></p>
-<p class="p1">ctx.font="40px sans-serif";</p>
-<p class="p1">ctx.fillText("你的第一匹配部门："+mainDept,150,1000);</p>
-<p class="p2"><br></p>
-<p class="p1">let link=document.createElement("a");</p>
-<p class="p1">link.download="匹配结果-"+mainDept+".png";</p>
-<p class="p1">link.href=canvas.toDataURL();</p>
-<p class="p1">link.click();</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<h1>🎯 测你适合学生会哪个部门</h1>
+<form id="quiz"></form>
+
+<div style="text-align:center;">
+<button onclick="calculate()">查看匹配结果</button>
+</div>
+
+<div id="result" class="result"></div>
+
+<div style="text-align:center;margin-top:20px;">
+<button onclick="generatePoster()" id="posterBtn" style="display:none;">生成专属主题海报</button>
+</div>
+
+<canvas id="posterCanvas" width="800" height="1200"></canvas>
+
+<script>
+
+// 部门颜色
+const deptColors={
+综合:"#1F3C88",
+内联:"#F4A261",
+外联:"#7B2CBF",
+学习:"#2A9D8F",
+生活:"#E76F51",
+文艺:"#D63384",
+体育:"#FF6B00",
+宣传:"#00A8E8",
+文化:"#C6A700",
+国际:"#3A0CA3"
+};
+
+let departments={};
+Object.keys(deptColors).forEach(d=>{
+departments[d]={score:0};
+});
+
+// 10个完全不同的问题
+const questions=[
+
+["如果学校突然断网2小时，你会？",
+["立刻梳理情况、协调解决",["综合",2],["内联",1]],
+["看看同学最着急什么",["生活",2],["内联",1]],
+["记录下这个有趣瞬间",["宣传",2],["文化",1]],
+["去操场活动一下",["体育",2],["文艺",1]]
+],
+
+["你更享受哪种成就感？",
+["活动从0到1完整落地",["综合",2],["外联",1]],
+["拉到资源让大家受益",["外联",2],["国际",1]],
+["全场气氛被点燃",["文艺",2],["体育",1]],
+["一次高质量思想交流",["学习",2],["文化",1]]
+],
+
+["面对难题你第一反应？",
+["先理清逻辑结构",["综合",2],["学习",1]],
+["看看能否借助外部资源",["外联",2],["国际",1]],
+["听听大家真实需求",["生活",2],["内联",1]],
+["换种表达方式解决",["宣传",2],["文艺",1]]
+],
+
+["如果邀请嘉宾进校园，你更想？",
+["企业家/校友大咖",["外联",2],["综合",1]],
+["学术名人",["学习",2],["文化",1]],
+["国际学生代表",["国际",2],["内联",1]],
+["体育冠军",["体育",2],["文艺",1]]
+],
+
+["你在团队里更像？",
+["稳定后方的组织者",["综合",2],["内联",1]],
+["气氛担当",["文艺",2],["体育",1]],
+["细心协调的人",["内联",2],["生活",1]],
+["连接不同圈子的人",["国际",2],["外联",1]]
+],
+
+["你最关注校园哪方面？",
+["制度流程是否顺畅",["综合",2],["学习",1]],
+["同学权益是否被听见",["生活",2],["内联",1]],
+["文化活动是否多元",["文化",2],["文艺",1]],
+["国际交流是否丰富",["国际",2],["外联",1]]
+],
+
+["看到一个优秀活动，你更关注？",
+["流程设计是否严密",["综合",2],["学习",1]],
+["现场氛围是否热烈",["文艺",2],["体育",1]],
+["传播效果如何",["宣传",2],["文化",1]],
+["合作资源是否强大",["外联",2],["国际",1]]
+],
+
+["如果策划校园节，你更想负责？",
+["整体统筹",["综合",2],["内联",1]],
+["舞台节目",["文艺",2],["文化",1]],
+["对外合作",["外联",2],["国际",1]],
+["视觉与传播",["宣传",2],["文化",1]]
+],
+
+["你理想中的大学收获是？",
+["组织能力成长",["综合",2],["内联",1]],
+["思想与认知升级",["学习",2],["文化",1]],
+["国际视野拓展",["国际",2],["外联",1]],
+["健康与活力",["体育",2],["生活",1]]
+],
+
+["你更愿意成为哪种人？",
+["被大家信任的定海神针",["综合",2],["内联",1]],
+["把世界带进校园的人",["国际",2],["文化",1]],
+["讲述校园故事的人",["宣传",2],["文艺",1]],
+["让团队更温暖的人",["内联",2],["生活",1]]
+]
+
+];
+
+const quiz=document.getElementById("quiz");
+
+questions.forEach((q,i)=>{
+let div=document.createElement("div");
+div.className="card";
+div.innerHTML="<b>"+(i+1)+". "+q[0]+"</b><br>";
+for(let j=1;j<q.length;j++){
+div.innerHTML+=`
+<label>
+<input type="radio" name="q${i}" 
+data-main="${q[j][1][0]}" data-mainv="${q[j][1][1]}"
+data-sub="${q[j][2][0]}" data-subv="${q[j][2][1]}">
+${q[j][0]}
+</label><br>`;
+}
+quiz.appendChild(div);
+});
+
+let topResults=[];
+
+function calculate(){
+
+Object.keys(departments).forEach(d=>departments[d].score=0);
+
+questions.forEach((q,i)=>{
+let selected=document.querySelector(`input[name="q${i}"]:checked`);
+if(selected){
+departments[selected.dataset.main].score+=parseInt(selected.dataset.mainv);
+departments[selected.dataset.sub].score+=parseInt(selected.dataset.subv);
+}
+});
+
+let maxScore=questions.length*2;
+let sorted=Object.entries(departments)
+.map(d=>[d[0],Math.round(d[1].score/maxScore*100)])
+.sort((a,b)=>b[1]-a[1])
+.slice(0,3);
+
+topResults=sorted;
+
+let result=document.getElementById("result");
+result.innerHTML="<h2>🏆 你的匹配结果</h2>";
+
+sorted.forEach(dep=>{
+result.innerHTML+=`
+<h3 style="color:${deptColors[dep[0]]}">${dep[0]} ${dep[1]}%</h3>
+<div class="progress">
+<div class="progress-inner" style="width:${dep[1]}%;background:${deptColors[dep[0]]}"></div>
+</div>
+`;
+});
+
+document.getElementById("posterBtn").style.display="inline-block";
+}
+
+function generatePoster(){
+const canvas=document.getElementById("posterCanvas");
+const ctx=canvas.getContext("2d");
+
+let mainDept=topResults[0][0];
+let color=deptColors[mainDept];
+
+ctx.fillStyle=color;
+ctx.fillRect(0,0,800,1200);
+
+ctx.fillStyle="#ffffff";
+ctx.font="bold 60px sans-serif";
+ctx.fillText("学生会部门匹配结果",80,150);
+
+ctx.font="50px sans-serif";
+let y=350;
+topResults.forEach(dep=>{
+ctx.fillText(dep[0]+"  "+dep[1]+"%",200,y);
+y+=150;
+});
+
+ctx.font="40px sans-serif";
+ctx.fillText("第一匹配部门："+mainDept,180,1000);
+
+let link=document.createElement("a");
+link.download="匹配结果-"+mainDept+".png";
+link.href=canvas.toDataURL();
+link.click();
+}
+
+</script>
 </body>
 </html>
